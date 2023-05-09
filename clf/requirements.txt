@@ -1,0 +1,12 @@
+uvicorn
+fastapi
+pydantic
+numpy
+pandas
+sentence-transformers
+python-multipart
+scikit-learn==1.0.2
+nltk
+loguru
+keras
+tensorflow

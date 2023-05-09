@@ -1,0 +1,27 @@
+[
+    {
+        "class": 100,
+        "output_dim": 2,
+        "mlb_dim": 16
+    },
+    {
+        "class": 70,
+        "output_dim": 11,
+        "mlb_dim": 48
+    },
+    {
+        "class": 101,
+        "output_dim": 17,
+        "mlb_dim": 46
+    },
+    {
+        "class": 63,
+        "output_dim": 6,
+        "mlb_dim": 5
+    },
+    {
+        "class": 123,
+        "output_dim": 100,
+        "mlb_dim": 201
+    }
+]

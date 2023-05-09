@@ -1,0 +1,9 @@
+uvicorn
+fastapi
+pydantic
+sentence-transformers
+python-multipart
+umap-learn[plot]
+scikit-learn==1.0.2
+nltk
+loguru

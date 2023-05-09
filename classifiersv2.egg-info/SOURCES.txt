@@ -1,0 +1,16 @@
+README.md
+pyproject.toml
+classifiersv2.egg-info/PKG-INFO
+classifiersv2.egg-info/SOURCES.txt
+classifiersv2.egg-info/dependency_links.txt
+classifiersv2.egg-info/requires.txt
+classifiersv2.egg-info/top_level.txt
+clf/__init__.py
+clf/backend/__init__.py
+clf/backend/main.py
+clf/backend/models.py
+clf/backend/scoring.py
+clf/backend/unified_classifier.py
+clf/frontend/__init__.py
+clf/frontend/app.py
+clf/frontend/sidebar.py
