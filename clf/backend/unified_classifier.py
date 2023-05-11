@@ -12,6 +12,7 @@ from loguru import logger
 import json
 import random
 import ast
+import gc
 data_source = pd.read_csv(os.path.join(os.getcwd(), 'backend/data/patents_v7.csv'))
 errors = []
 validation = pd.read_csv(os.path.join(os.getcwd(), 'backend/data/grouped_labels.csv')).sample(n=20)
@@ -111,7 +112,7 @@ class UnifiedClassifier:
         clss.extend(temp['classes'].to_list()[-stage_1_thresh:])
         # clss = self._dropout(clss)
         # sims.append(temp['similarity'].to_list()[-15:])
-        
+        gc.collect()
         return clss
     
     def stage_2_predict(self, data: str, clss: List[Union[str, int]], stage_2_thresh: float=.05):
@@ -153,6 +154,7 @@ class UnifiedClassifier:
                     log = json.dumps(errors, indent=4)
                     f.write(log)
         # predict = self._dropout(predict)
+        gc.collect()
         return predict
     
     def clean_result(self, predictions):
