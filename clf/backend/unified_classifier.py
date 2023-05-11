@@ -119,7 +119,7 @@ class UnifiedClassifier:
         log = None
         
         for cls in clss:
-            if os.path.exists(os.path.join(self.stage_2_path, f'{str(cls)}')):
+            if os.path.exists(os.path.join(self.stage_2_path, f'{str(cls)}/{str(cls)}_mlb.pkl')):
                 final = []
                 with open(os.path.join(self.stage_2_path, f'{str(cls)}/{str(cls)}_mlb.pkl'), 'rb') as f:
                     mlb = pickle.load(f) 
