@@ -21,3 +21,13 @@ services:
         reservations:
           devices:
           - capabilities: [gpu]
+  clf_3:
+    container_name: clf_3
+    build: .
+    ports:
+      - 8890:8888
+    deploy:
+      resources:
+        reservations:
+          devices:
+          - capabilities: [gpu]
