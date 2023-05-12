@@ -168,8 +168,8 @@ class UnifiedClassifier:
                     results.append(p)
         return results
     
-    # def stage_1(self, data, stage_1_thresh):
-    #     return self.stage_1_predict(data, stage_1_thresh)
+    def stage_1(self, data, stage_1_thresh):
+        return self.stage_1_predict(data, stage_1_thresh)
     
     def predict(self, data: str, stage_1_thresh: int, stage_2_thresh: float):
         clss = self.stage_1_predict(data, stage_1_thresh)

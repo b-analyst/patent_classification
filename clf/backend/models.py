@@ -12,7 +12,7 @@ class Validation(BaseModel):
     stage_1_thresh: int=None
     stage_2_thresh: float=None
 
-# class Stage_1(BaseModel):
-#     model: str=None
-#     inp: str=None
-#     stage_1_thresh: int=None
+class Stage_1(BaseModel):
+    model: str=None
+    inp: str=None
+    stage_1_thresh: int=None

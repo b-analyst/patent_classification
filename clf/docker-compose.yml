@@ -1,11 +1,21 @@
 version: '3.9'
 
 services:
-  clf:
-    container_name: clf
+  clf_1:
+    container_name: clf_1
     build: .
     ports:
       - 8888:8888
+    deploy:
+      resources:
+        reservations:
+          devices:
+          - capabilities: [gpu]
+  clf_2:
+    container_name: clf_2
+    build: .
+    ports:
+      - 8889:8888
     deploy:
       resources:
         reservations:

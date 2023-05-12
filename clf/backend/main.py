@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from backend.models import Abstract, Validation
+from backend.models import Abstract, Validation, Stage_1
 from backend.unified_classifier import UnifiedClassifier
 from typing import List, Optional
 import uvicorn
@@ -11,10 +11,10 @@ async def inference(data: Abstract) -> List:
     classifier = UnifiedClassifier(data.model)
     return classifier.predict(data.inp, stage_1_thresh=data.stage_1_thresh, stage_2_thresh=data.stage_2_thresh)
 
-# @app.post('/stage_1/')
-# async def stage_1(data: Stage_1):
-#     classifier = UnifiedClassifier(data.model)
-#     return classifier.stage_1(data.inp, data.stage_1_thresh)
+@app.post('/stage_1/')
+async def stage_1(data: Stage_1):
+    classifier = UnifiedClassifier(data.model)
+    return classifier.stage_1(data.inp, data.stage_1_thresh)
 
 @app.post('/validate/')
 async def validate(data: Validation):
