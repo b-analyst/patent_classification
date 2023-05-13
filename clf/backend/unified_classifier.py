@@ -13,6 +13,8 @@ import json
 import random
 import ast
 import gc
+import torch
+
 data_source = pd.read_csv(os.path.join(os.getcwd(), 'backend/data/patents_v7.csv'))
 errors = []
 validation = pd.read_csv(os.path.join(os.getcwd(), 'backend/data/grouped_labels.csv')).sample(n=20)
@@ -125,9 +127,11 @@ class UnifiedClassifier:
                 with open(os.path.join(self.stage_2_path, f'{str(cls)}/{str(cls)}_mlb.pkl'), 'rb') as f:
                     mlb = pickle.load(f) 
                 logger.info(f'loaded {cls} mlb')
+                embeddings = self.similarity.encode([data])
+                torch.cuda.empty_cache()
+                gc.collect()
                 model = keras.models.load_model(os.path.join(self.stage_2_path, f'{str(cls)}/{str(cls)}.ckpt'))
                 logger.info(f'loaded {cls} classifier')
-                embeddings = self.similarity.encode([data])
                 preds = model.predict(embeddings)
                 final.append(preds)
                 Test_prob = np.mean(final, 0)
