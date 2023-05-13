@@ -14,6 +14,7 @@ import random
 import ast
 import gc
 import torch
+from keras import backend as K
 
 data_source = pd.read_csv(os.path.join(os.getcwd(), 'backend/data/patents_v7.csv'))
 errors = []
@@ -128,8 +129,6 @@ class UnifiedClassifier:
                     mlb = pickle.load(f) 
                 logger.info(f'loaded {cls} mlb')
                 embeddings = self.similarity.encode([data])
-                torch.cuda.empty_cache()
-                gc.collect()
                 model = keras.models.load_model(os.path.join(self.stage_2_path, f'{str(cls)}/{str(cls)}.ckpt'))
                 logger.info(f'loaded {cls} classifier')
                 preds = model.predict(embeddings)
@@ -158,6 +157,8 @@ class UnifiedClassifier:
                     log = json.dumps(errors, indent=4)
                     f.write(log)
         # predict = self._dropout(predict)
+        K.clear_session()
+        torch.cuda.empty_cache()
         gc.collect()
         return predict
     
