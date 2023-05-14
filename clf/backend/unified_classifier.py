@@ -157,9 +157,9 @@ class UnifiedClassifier:
                     log = json.dumps(errors, indent=4)
                     f.write(log)
         # predict = self._dropout(predict)
-        K.clear_session()
-        torch.cuda.empty_cache()
-        gc.collect()
+        # K.clear_session()
+        # torch.cuda.empty_cache()
+        # gc.collect()
         return predict
     
     def clean_result(self, predictions):

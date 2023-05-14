@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import List, Optional, Union
 
 class Abstract(BaseModel):
     model: str=None
@@ -16,3 +16,8 @@ class Stage_1(BaseModel):
     model: str=None
     inp: str=None
     stage_1_thresh: int=None
+
+class Stage_2(BaseModel):
+    data: str
+    clss: List[Union[str, int]] 
+    stage_2_thresh: float

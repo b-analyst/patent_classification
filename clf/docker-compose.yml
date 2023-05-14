@@ -11,14 +11,5 @@ services:
         reservations:
           devices:
           - capabilities: [gpu]
-  clf_2:
-    container_name: clf_2
-    build: .
-    ports:
-      - 8889:8888
-    deploy:
-      resources:
-        reservations:
-          devices:
-          - capabilities: [gpu]
+
 
