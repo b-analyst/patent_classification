@@ -19,7 +19,8 @@ async def stage_1(data: Stage_1):
 @app.post('/stage_2/')
 async def stage_2(data: Stage_2):
     classifier = UnifiedClassifier()
-    return classifier.stage_2_predict(data.data, data.clss, data.stage_2_thresh)
+    predict = classifier.stage_2_predict(data.data, data.clss, data.stage_2_thresh)
+    return classifier.clean_result(predict)
 
 @app.post('/validate/')
 async def validate(data: Validation):
