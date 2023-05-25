@@ -18,6 +18,6 @@ class Stage_1(BaseModel):
     stage_1_thresh: int=None
 
 class Stage_2(BaseModel):
-    data: str
-    clss: List[Union[str, int]] 
-    stage_2_thresh: float
+    data: str=None
+    clss: List[Union[str, int]]=None
+    stage_2_thresh: float=None

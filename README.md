@@ -1,0 +1,1 @@
+USPC patent classification is a challenging extreme multi-label classification task. This is a repository containing the code to inference custom trained models created at TechNext research (models not included here).
