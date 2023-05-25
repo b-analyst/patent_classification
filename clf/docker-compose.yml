@@ -11,5 +11,6 @@ services:
         reservations:
           devices:
           - capabilities: [gpu]
+    restart: unless-stopped
 
 
