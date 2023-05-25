@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from backend.models import Abstract, Validation, Stage_1, Stage_2
 from backend.unified_classifier import UnifiedClassifier
-from typing import List, Optional
+from typing import List
 import uvicorn
 
 app = FastAPI()
@@ -21,6 +21,12 @@ async def stage_2(data: Stage_2):
     classifier = UnifiedClassifier()
     predict = classifier.stage_2_predict(data.data, data.clss, data.stage_2_thresh)
     return classifier.clean_result(predict)
+
+# @app.post('/release_memory/')
+# async def release_memory():
+#     classifier = UnifiedClassifier()
+#     classifier.clear_session()
+#     return {"message": "session cleared."}
 
 @app.post('/validate/')
 async def validate(data: Validation):

@@ -10,3 +10,4 @@ nltk
 loguru
 keras
 tensorflow
+# numba

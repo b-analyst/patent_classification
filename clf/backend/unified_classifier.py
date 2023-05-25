@@ -1,6 +1,5 @@
-from pathlib import Path
 import os
-from typing import Any, List, Union, Optional
+from typing import List, Union, Optional
 import numpy as np
 from tqdm.auto import tqdm
 import pickle
@@ -13,12 +12,17 @@ import json
 import random
 import ast
 import gc
-import torch
-from keras import backend as K
+# import torch
+# from keras import backend as K
+import tensorflow.compat.v1 as tf
+# from numba import cuda
+
 
 data_source = pd.read_csv(os.path.join(os.getcwd(), 'backend/data/patents_v7.csv'))
 errors = []
 validation = pd.read_csv(os.path.join(os.getcwd(), 'backend/data/grouped_labels.csv')).sample(n=20)
+# gpu_options = tf.GPUOptions(allow_growth=True)
+# session = tf.InteractiveSession(config=tf.ConfigProto(gpu_options=gpu_options))
 
 
 class UnifiedClassifier:
@@ -121,6 +125,8 @@ class UnifiedClassifier:
     def stage_2_predict(self, data: str, clss: List[Union[str, int]], stage_2_thresh: float=.05):
         predict = []
         log = None
+        gpu_options = tf.GPUOptions(allow_growth=True)
+        session = tf.InteractiveSession(config=tf.ConfigProto(gpu_options=gpu_options))
         
         for cls in clss:
             if os.path.exists(os.path.join(self.stage_2_path, f'{str(cls)}/{str(cls)}_mlb.pkl')):
@@ -129,9 +135,15 @@ class UnifiedClassifier:
                     mlb = pickle.load(f) 
                 logger.info(f'loaded {cls} mlb')
                 embeddings = self.similarity.encode([data])
+
+                print('setting new session')
+
                 model = keras.models.load_model(os.path.join(self.stage_2_path, f'{str(cls)}/{str(cls)}.ckpt'))
                 logger.info(f'loaded {cls} classifier')
-                preds = model.predict(embeddings)
+                # preds = model.predict(embeddings)
+                print('using __call__ method')
+                preds = model(tf.convert_to_tensor(embeddings, dtype=tf.float32))
+                    
                 final.append(preds)
                 Test_prob = np.mean(final, 0)
                 try:
@@ -160,10 +172,19 @@ class UnifiedClassifier:
         # K.clear_session()
         # torch.cuda.empty_cache()
         # gc.collect()
+        session.close()
         return predict
     
+    # def clear_session(self):
+    #     K.clear_session()
+    #     torch.cuda.empty_cache()
+    #     # dev = cuda.get_current_device()
+    #     # dev.reset()
+    #     # cuda.close()
+    #     gc.collect()
+    
     def clean_result(self, predictions):
-        results = []
+        results = []  
         for pred in predictions:
             try:
                 int(pred)
