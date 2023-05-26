@@ -125,8 +125,8 @@ class UnifiedClassifier:
     def stage_2_predict(self, data: str, clss: List[Union[str, int]], stage_2_thresh: float=.05):
         predict = []
         log = None
-        gpu_options = tf.GPUOptions(allow_growth=True)
-        session = tf.InteractiveSession(config=tf.ConfigProto(gpu_options=gpu_options))
+        # gpu_options = tf.GPUOptions(allow_growth=True)
+        # session = tf.InteractiveSession(config=tf.ConfigProto(gpu_options=gpu_options))
         
         for cls in clss:
             if os.path.exists(os.path.join(self.stage_2_path, f'{str(cls)}/{str(cls)}_mlb.pkl')):
@@ -172,7 +172,7 @@ class UnifiedClassifier:
         # K.clear_session()
         # torch.cuda.empty_cache()
         # gc.collect()
-        session.close()
+        # session.close()
         return predict
     
     def clear_session(self):
