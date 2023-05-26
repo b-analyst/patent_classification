@@ -22,11 +22,11 @@ async def stage_2(data: Stage_2):
     predict = classifier.stage_2_predict(data.data, data.clss, data.stage_2_thresh)
     return classifier.clean_result(predict)
 
-# @app.post('/release_memory/')
-# async def release_memory():
-#     classifier = UnifiedClassifier()
-#     classifier.clear_session()
-#     return {"message": "session cleared."}
+@app.post('/release_memory/')
+async def release_memory():
+    classifier = UnifiedClassifier()
+    classifier.clear_session()
+    return {"message": "session cleared."}
 
 @app.post('/validate/')
 async def validate(data: Validation):
